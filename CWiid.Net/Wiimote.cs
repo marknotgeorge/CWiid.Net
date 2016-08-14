@@ -99,6 +99,21 @@ namespace CWiid.Net
             }
         }
 
+        private LEDFlags _LEDs;
+
+        public LEDFlags LEDs
+        {
+            get
+            {
+                return _LEDs;
+            }
+            set
+            {
+                _LEDs = value;
+                _wrapper.SetLED(m_wiimote, value);
+            }
+        }
+
         private bool _rumble;
 
         public bool Rumble
@@ -111,6 +126,35 @@ namespace CWiid.Net
             {
                 _rumble = value;
                 _wrapper.SetRumble(m_wiimote, value);
+            }
+        }
+
+        private ReportModeFlags _reportingMode;
+
+        public ReportModeFlags ReportingMode
+        {
+            get
+            {
+                return _reportingMode;
+            }
+            set
+            {
+                _reportingMode = value;
+                _wrapper.SetReportingMode(m_wiimote, value);
+            }
+        }
+
+        public WiimoteState? State
+        {
+            get
+            {
+                WiimoteState returnState = new WiimoteState();
+
+                int result = _wrapper.GetState(m_wiimote, ref returnState);
+                if (result > 0)
+                    return null;
+                else
+                    return returnState;
             }
         }
 

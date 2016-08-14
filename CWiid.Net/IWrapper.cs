@@ -15,5 +15,11 @@ namespace CWiid.Net
         int Close(IntPtr wiimote);
 
         int SetRumble(IntPtr wiimote, bool rumble);
+
+        int SetLED(IntPtr wiimote, LEDFlags flags);
+
+        int GetState(IntPtr wiimote, ref WiimoteState state);
+
+        int SetReportingMode(IntPtr wiimote, ReportModeFlags flags);
     }
 }

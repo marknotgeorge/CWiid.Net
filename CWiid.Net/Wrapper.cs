@@ -20,6 +20,16 @@ namespace CWiid.Net
         [DllImport("libcwiid.so")]
         private static extern int cwiid_set_rumble(IntPtr wiimote, byte rumble);
 
+        [DllImport("libcwiid.so")]
+        public static extern int cwiid_set_led(IntPtr wiimote, LEDFlags ledFlags);
+
+        [DllImport("libcwiid.so")]
+        public static extern int cwiid_get_state(IntPtr wiimote, ref WiimoteState state);
+
+        // int cwiid_set_rpt_mode(cwiid_wiimote_t *wiimote, uint8_t rpt_mode);
+        [DllImport("libcwiid.so")]
+        public static extern int cwiid_set_rpt_mode(IntPtr wiimote, ReportModeFlags rpt_mode);
+
         public IntPtr OpenTimeout(ref BluetoothDeviceAddress bdaddr, OpenFlags flags, int timeout)
         {
             return cwiid_open_timeout(ref bdaddr, flags, timeout);
@@ -33,6 +43,21 @@ namespace CWiid.Net
         public int SetRumble(IntPtr wiimote, bool rumble)
         {
             return cwiid_set_rumble(wiimote, Convert.ToByte(rumble));
+        }
+
+        public int SetLED(IntPtr wiimote, LEDFlags flags)
+        {
+            return cwiid_set_led(wiimote, flags);
+        }
+
+        public int GetState(IntPtr wiimote, ref WiimoteState state)
+        {
+            return cwiid_get_state(wiimote, ref state);
+        }
+
+        public int SetReportingMode(IntPtr wiimote, ReportModeFlags flags)
+        {
+            return cwiid_set_rpt_mode(wiimote, flags);
         }
     }
 }
